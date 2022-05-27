@@ -4,7 +4,9 @@ namespace Core.Specifications
 {
     public class ProductWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
-        public ProductWithTypesAndBrandsSpecification(string sort)
+        public ProductWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)
+            : base(x => (!brandId.HasValue || x.ProductBrandId == brandId) &&
+                       (!typeId.HasValue || x.ProductTypeId == typeId))
         {
             this.Includes.Add(d => d.ProductBrand);
             this.Includes.Add(d => d.ProductType);
@@ -21,7 +23,7 @@ namespace Core.Specifications
                         AddOrderByDescending(p => p.Price);
                         break;
                     default:
-                        AddOrderBy(d=>d.Name);
+                        AddOrderBy(d => d.Name);
                         break;
                 }
             }
