@@ -1,11 +1,6 @@
 ﻿using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -20,10 +15,21 @@ namespace Infrastructure
                 currentQuery = currentQuery.Where(spec.Criteria);
             }
 
+            if (spec.OrderBy != null)
+            {
+                currentQuery = currentQuery.OrderBy(spec.OrderBy);
+            }
+
+            if (spec.OrderByDescending != null)
+            {
+                currentQuery = currentQuery.OrderByDescending(spec.OrderByDescending);
+            }
+
             if (spec.Includes.Count > 0)
             {
                 currentQuery = spec.Includes.Aggregate(currentQuery, (current, include) => current.Include(include));
             }
+
 
             return currentQuery;
         }

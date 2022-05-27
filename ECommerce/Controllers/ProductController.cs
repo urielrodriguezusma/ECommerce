@@ -25,7 +25,7 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Product>>> Get()
+        public async Task<ActionResult<IReadOnlyList<Product>>> Get(string sort)
         {
             var productSpecification = new ProductWithTypesAndBrandsSpecification();
             var products = await this.productRepository.ListAsync(productSpecification);
