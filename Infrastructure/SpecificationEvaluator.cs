@@ -25,6 +25,11 @@ namespace Infrastructure
                 currentQuery = currentQuery.OrderByDescending(spec.OrderByDescending);
             }
 
+            if (spec.IsPagingEnabled)
+            {
+                currentQuery = currentQuery.Skip(spec.Skip).Take(spec.Take);
+            }
+
             if (spec.Includes.Count > 0)
             {
                 currentQuery = spec.Includes.Aggregate(currentQuery, (current, include) => current.Include(include));
