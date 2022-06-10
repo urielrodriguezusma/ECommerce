@@ -40,13 +40,26 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 });
 
 builder.Services.AddDbContext<StoreContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
-});
+  {
+      opt.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
+  });
 
 builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+
+//try
+//{
+//    var context = app.Services.GetRequiredService<StoreContext>();
+//    await context.Database.MigrateAsync();
+//    await StoreContextSeed.SeedAsync(context);
+//}
+//catch (Exception ex)
+//{
+//    var logger = loggerFactory.CreateLogger<Program>();
+//    logger.LogError(ex, "An error occured during migration");
+//}
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
