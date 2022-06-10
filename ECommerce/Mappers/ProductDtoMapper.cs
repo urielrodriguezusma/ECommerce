@@ -13,6 +13,8 @@ namespace ECommerce.Mappers
                 .ForMember(dest => dest.ProductType, src => src.MapFrom(d => d.ProductType.Name))
                 .ForMember(dest => dest.ProductBrand, src => src.MapFrom(d => d.ProductBrand.Name))
                 .ForMember(dest => dest.PictureUrl, src => src.MapFrom<ProductUrlResolver>());
+
+            this.CreateMap<AddressDto, Core.Entities.OrdersAggregate.Address>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure
@@ -10,6 +11,9 @@ namespace Infrastructure
         {
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderService, OrderService>();
             return services;
         }
     }
