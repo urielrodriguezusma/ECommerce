@@ -49,9 +49,17 @@ builder.Services.AddInfrastructureServices();
 var app = builder.Build();
 var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+    await context.Database.MigrateAsync();
+    await StoreContextSeed.SeedAsync(context);
+}
+
+
 //try
 //{
-//    var context = app.Services.GetRequiredService<StoreContext>();
+//var context = app.Services.GetRequiredService<StoreContext>();
 //    await context.Database.MigrateAsync();
 //    await StoreContextSeed.SeedAsync(context);
 //}

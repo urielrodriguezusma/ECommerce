@@ -1,6 +1,5 @@
 ﻿using Core.Entities;
 using Core.Entities.OrdersAggregate;
-using Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
